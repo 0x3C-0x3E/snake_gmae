@@ -6,7 +6,7 @@ set(CMAKE_SYSTEM_PROCESSOR x86_64)
 
 # Set compiler flags
 # set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror -g -fsanitize=address")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -g ")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -g -lncurses")
 
 # Recursively collect all .c and .h files in src/
 file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS src/*.c src/*.h)
