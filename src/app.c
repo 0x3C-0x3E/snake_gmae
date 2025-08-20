@@ -1,4 +1,6 @@
 #include "app.h"
+#include "config.h"
+#include "renderer.h"
 
 void app_init(App* app) {
     initscr();
@@ -6,7 +8,10 @@ void app_init(App* app) {
     curs_set(0);
     nodelay(stdscr, TRUE);
     
-    getmaxyx(stdscr, app->terminal_height, app->terminal_width);
+    render_data_update(&app->render_data);
+    app->render_data.arena_width = (app->render_data.terminal_width  < ARENA_WIDTH ) ? app->render_data.terminal_width : ARENA_WIDTH;
+    app->render_data.arena_height= (app->render_data.terminal_height < ARENA_HEIGHT) ? app->render_data.terminal_height: ARENA_HEIGHT;
+
     app->elapsed_ticks = 0;
 
     app->is_running = true;
@@ -25,18 +30,18 @@ void app_run(App* app) {
 }
 
 void app_update(App* app) {
-    getmaxyx(stdscr, app->terminal_height, app->terminal_width);
     app->elapsed_ticks ++;
 }
 
 void app_draw(App* app) {
     erase();
 
+    renderer_draw_arena(&app->render_data);
+
     char buff[255];
     sprintf(buff, "%d", app->elapsed_ticks);
 
-    size_t buff_len = strlen(buff);
-    mvprintw(app->terminal_height/2, app->terminal_width/2 - (buff_len / 2), "%s", buff);
+    draw_text(&app->render_data, buff);
 
     refresh();
 }

@@ -7,10 +7,10 @@
 #include <stdbool.h>
 
 #include "renderer.h"
+#include "config.h"
 
 typedef struct {
-    int terminal_width; 
-    int terminal_height; 
+    RenderData render_data;
 
     int elapsed_ticks;
 
