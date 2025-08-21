@@ -8,13 +8,19 @@
 
 #include "renderer.h"
 #include "config.h"
+#include "game_context.h"
+
+#include "snake/snake.h"
 
 typedef struct {
     RenderData render_data;
+    GameContext game_context;
 
     int elapsed_ticks;
 
     bool is_running;
+
+    Snake snake;
 } App;
 
 void app_init(App* app);
