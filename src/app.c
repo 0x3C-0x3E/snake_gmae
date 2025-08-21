@@ -73,18 +73,22 @@ void app_handle_keyboard_input(App* app) {
     switch (ch) {
         case KEY_UP:
         case 'w':
+        case 'k':
             app->game_context.inputs.up    = true;
             break;
         case KEY_DOWN:
         case 's':
+        case 'j':
             app->game_context.inputs.down  = true;
             break;       
         case KEY_LEFT:
         case 'a':
+        case 'h':
             app->game_context.inputs.left  = true;
             break;
         case KEY_RIGHT:
         case 'd':
+        case 'l':
             app->game_context.inputs.right = true;
             break;
     }
