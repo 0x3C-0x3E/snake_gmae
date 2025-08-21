@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include "../game_context.h"
 #include "../config.h"
+#include "../utils/util_random.h"
 
 typedef enum {
     DIR_UP    = 0,
