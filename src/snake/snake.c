@@ -1,4 +1,5 @@
 #include "snake.h"
+#include <ncurses.h>
 
 void snake_init(Snake* snake, GameContext* game_context) {
     snake->game_context = game_context;
@@ -70,13 +71,20 @@ void snake_update_tick(Snake* snake) {
 }
 
 void snake_draw(Snake* snake) {
+    init_pair(2, COLOR_GREEN, -1);
+    init_pair(3, COLOR_YELLOW, -1);
+
+    attron(COLOR_PAIR(2));
     for (size_t i = 0; i < snake->parts_length; i++) {
         int x = snake->parts[i].x;
         int y = snake->parts[i].y;
         draw_at(snake->game_context->render_data, x, y, "*");
     }
 
+    attroff(COLOR_PAIR(2));
+    attron(COLOR_PAIR(3));
     draw_at(snake->game_context->render_data, snake->head_x, snake->head_y, "#");
+    attroff(COLOR_PAIR(3));
 }
 
 void snake_add_part(Snake* snake, int x, int y) {

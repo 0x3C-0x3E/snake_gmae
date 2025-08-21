@@ -15,7 +15,7 @@ void draw_at(RenderData* render_data, int x, int y, const char* text) {
 void draw_text(RenderData* render_data, const char* text) {
     size_t buff_len = strlen(text);
     draw_at(render_data,
-            render_data->arena_width / 2 - buff_len,
+            render_data->arena_width / 2 - buff_len / 2,
             render_data->arena_height/ 2,
             text);
 }

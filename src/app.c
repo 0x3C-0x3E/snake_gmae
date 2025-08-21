@@ -10,12 +10,14 @@ void app_init(App* app) {
     nodelay(stdscr, TRUE); // Non-blocking getch()
     noecho();             // Don't echo key presses
     curs_set(0);
+    start_color();
+    use_default_colors();              // Allow using default terminal colors
 
     rand_init();
 
     render_data_update(&app->render_data);
-    app->render_data.arena_width = (app->render_data.terminal_width  < ARENA_WIDTH ) ? app->render_data.terminal_width : ARENA_WIDTH;
-    app->render_data.arena_height= (app->render_data.terminal_height < ARENA_HEIGHT) ? app->render_data.terminal_height: ARENA_HEIGHT;
+    app->render_data.arena_width = (app->render_data.terminal_width  < ARENA_WIDTH ) ? app->render_data.terminal_width  - 1 : ARENA_WIDTH;
+    app->render_data.arena_height= (app->render_data.terminal_height < ARENA_HEIGHT) ? app->render_data.terminal_height - 1 : ARENA_HEIGHT;
 
     app->game_context = (GameContext) {
         .render_data = &app->render_data,
@@ -75,7 +77,10 @@ void app_draw(App* app) {
 
     snake_draw(&app->snake);
 
+    init_pair(1, COLOR_RED, -1);
+    attron(COLOR_PAIR(1));
     draw_at(&app->render_data, app->game_context.apple_x, app->game_context.apple_y, "o");
+    attroff(COLOR_PAIR(1));
 
     if (app->game_context.gameover) {
         draw_text(&app->render_data, "GAME OVER");
