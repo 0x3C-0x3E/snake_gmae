@@ -16,6 +16,8 @@ typedef struct {
     Inputs inputs;
     RenderData* render_data;
 
+    bool gameover;
+
     int apple_x;
     int apple_y;
 } GameContext;

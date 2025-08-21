@@ -1,4 +1,5 @@
 #include "app.h"
+#include "renderer.h"
 #include "snake/snake.h"
 #include <ncurses.h>
 
@@ -10,6 +11,8 @@ void app_init(App* app) {
     noecho();             // Don't echo key presses
     curs_set(0);
 
+    rand_init();
+
     render_data_update(&app->render_data);
     app->render_data.arena_width = (app->render_data.terminal_width  < ARENA_WIDTH ) ? app->render_data.terminal_width : ARENA_WIDTH;
     app->render_data.arena_height= (app->render_data.terminal_height < ARENA_HEIGHT) ? app->render_data.terminal_height: ARENA_HEIGHT;
@@ -17,6 +20,9 @@ void app_init(App* app) {
     app->game_context = (GameContext) {
         .render_data = &app->render_data,
         .inputs = {0},
+
+        .gameover = false,
+
         .apple_x = 3,
         .apple_y = 4,
     };
@@ -45,6 +51,13 @@ void app_run(App* app) {
 }
 
 void app_update(App* app) {
+    if (app->game_context.gameover) {
+        if (app->game_context.inputs.restart) {
+            app_init(app);
+        }
+        return;
+    }
+
     snake_update(&app->snake);
     app->elapsed_ticks ++;
 
@@ -63,6 +76,12 @@ void app_draw(App* app) {
     //
     // draw_text(&app->render_data, buff);
     snake_draw(&app->snake);
+
+    draw_at(&app->render_data, app->game_context.apple_x, app->game_context.apple_y, "o");
+
+    if (app->game_context.gameover) {
+        draw_text(&app->render_data, "GAME OVER");
+    }
 
     refresh();
 }
@@ -94,6 +113,11 @@ void app_handle_keyboard_input(App* app) {
         case 'd':
         case 'l':
             app->game_context.inputs.right = true;
+            break;
+
+        case ' ':
+        case '\n':
+            app->game_context.inputs.restart = true;
             break;
     }
 }

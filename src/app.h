@@ -11,6 +11,7 @@
 #include "game_context.h"
 
 #include "snake/snake.h"
+#include "utils/util_random.h"
 
 typedef struct {
     RenderData render_data;
