@@ -47,6 +47,10 @@ void app_run(App* app) {
 void app_update(App* app) {
     snake_update(&app->snake);
     app->elapsed_ticks ++;
+
+    if (app->elapsed_ticks % 10 == 0) {
+        snake_update_tick(&app->snake);
+    }
 }
 
 void app_draw(App* app) {
