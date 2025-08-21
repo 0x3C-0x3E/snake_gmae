@@ -20,6 +20,8 @@ typedef struct {
 
     int apple_x;
     int apple_y;
+
+    int score;
 } GameContext;
 
 

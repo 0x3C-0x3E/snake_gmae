@@ -32,8 +32,9 @@ void snake_update_tick(Snake* snake) {
 
     snake_add_part(snake, snake->head_x, snake->head_y);
     if (snake->head_x == snake->game_context->apple_x && snake->head_y == snake->game_context->apple_y) {
+        snake->game_context->score ++;
         snake->game_context->apple_x = rand_range(1, snake->game_context->render_data->arena_width  - 1);
-        snake->game_context->apple_x = rand_range(1, snake->game_context->render_data->arena_height - 1);
+        snake->game_context->apple_y = rand_range(1, snake->game_context->render_data->arena_height - 1);
 
     } else {
         snake_remove_first_part(snake);

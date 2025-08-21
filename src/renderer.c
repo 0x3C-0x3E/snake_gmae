@@ -6,8 +6,8 @@ void render_data_update(RenderData* render_data) {
 
 
 void draw_at(RenderData* render_data, int x, int y, const char* text) {
-    int draw_x = (render_data->arena_width >= x) ? x : render_data->arena_width;
-    int draw_y = (render_data->arena_height>= y) ? y : render_data->arena_height;
+    int draw_x = render_data->terminal_width / 2 - render_data->arena_width / 2 + x;
+    int draw_y = render_data->terminal_height / 2 - render_data->arena_height / 2 + y;
     mvprintw(draw_y, draw_x, "%s", text);
 }
 
@@ -42,7 +42,7 @@ void renderer_draw_arena(RenderData* render_data) {
         }
 
         buff[buff_size] = '\0';
-        mvprintw(y, 0, "%s", buff);
+        draw_at(render_data, 0, y, buff);
     }
 
 }

@@ -25,6 +25,8 @@ void app_init(App* app) {
 
         .apple_x = 3,
         .apple_y = 4,
+        
+        .score = 0,
     };
 
     app->elapsed_ticks = 0;
@@ -71,10 +73,6 @@ void app_draw(App* app) {
 
     renderer_draw_arena(&app->render_data);
 
-    // char buff[255];
-    // sprintf(buff, "%d", app->elapsed_ticks);
-    //
-    // draw_text(&app->render_data, buff);
     snake_draw(&app->snake);
 
     draw_at(&app->render_data, app->game_context.apple_x, app->game_context.apple_y, "o");
@@ -82,6 +80,10 @@ void app_draw(App* app) {
     if (app->game_context.gameover) {
         draw_text(&app->render_data, "GAME OVER");
     }
+
+    char buff[255];
+    sprintf(buff, " Score: %d", app->game_context.score);
+    draw_at(&app->render_data, 0, app->render_data.arena_height + 1, buff);
 
     refresh();
 }
