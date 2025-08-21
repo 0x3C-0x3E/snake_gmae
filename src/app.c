@@ -48,7 +48,7 @@ void app_update(App* app) {
     snake_update(&app->snake);
     app->elapsed_ticks ++;
 
-    if (app->elapsed_ticks % 10 == 0) {
+    if (app->elapsed_ticks % TICK_UPDATE_RATE == 0) {
         snake_update_tick(&app->snake);
     }
 }

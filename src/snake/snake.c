@@ -36,11 +36,11 @@ void snake_update_tick(Snake* snake) {
             break;
     }
 
-    if (snake->head_x <= 0) {snake->head_x = 1;}
-    if (snake->head_y <= 0) {snake->head_y = 1;}
+    if (snake->head_x <= 0) {snake->head_x = snake->game_context->render_data->arena_width  - 1;}
+    if (snake->head_y <= 0) {snake->head_y = snake->game_context->render_data->arena_height - 1;}
 
-    if (snake->head_x >= snake->game_context->render_data->arena_width ) {snake->head_x = snake->game_context->render_data->arena_width  - 1;}
-    if (snake->head_y >= snake->game_context->render_data->arena_height) {snake->head_y = snake->game_context->render_data->arena_height - 1;}
+    if (snake->head_x >= snake->game_context->render_data->arena_width ) {snake->head_x = 1;}
+    if (snake->head_y >= snake->game_context->render_data->arena_height) {snake->head_y = 1;}
 }
 
 void snake_draw(Snake* snake) {
